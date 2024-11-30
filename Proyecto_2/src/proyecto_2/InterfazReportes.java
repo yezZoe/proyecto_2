@@ -18,6 +18,7 @@ public class InterfazReportes extends JFrame {
     /**
      * Constructor para generar reportes.
      * Constructor to generate reports.
+     * @param gestionVentas
      */
     public InterfazReportes(SistemaVentas gestionVentas) {
         this.gestionVentas = gestionVentas;
