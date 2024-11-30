@@ -31,8 +31,8 @@ public class InterfazRegistroVentas extends JFrame {
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(4, 2));
-      // **Crear la barra de menú**
-        // **Crear la barra de menú**
+      // Crear la barra de menú
+        // Crear la barra de menú
         JMenuBar barraMenu = new JMenuBar();  // Crear barra de menú
         JMenu menuOpciones = new JMenu("Menú");  // Crear un menú llamado "Menú"
         
