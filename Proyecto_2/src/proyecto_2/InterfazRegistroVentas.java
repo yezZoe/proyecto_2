@@ -57,7 +57,7 @@ public class InterfazRegistroVentas extends JFrame {
         JMenuItem itemVerReportes = new JMenuItem("Ver Reportes");
         JMenuItem itemVerReportesAvanzados = new JMenuItem("Ver Reportes Avanzados");
         JMenuItem itemVerGraficoVentas = new JMenuItem("Ver Gráfico de Ventas");
-        JMenuItem itemCargarVentas = new JMenuItem("Cargar Ventas");
+        JMenuItem itemCargarVentas = new JMenuItem("Todas las Ventas");
         JMenuItem itemSalir = new JMenuItem("Salir");
 
         // Add actions to menu items
@@ -148,6 +148,7 @@ public class InterfazRegistroVentas extends JFrame {
 
     /**
      * Main method to launch the application.
+     * @param args
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(InterfazRegistroVentas::new);
