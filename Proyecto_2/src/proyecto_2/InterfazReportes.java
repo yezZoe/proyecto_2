@@ -125,4 +125,3 @@ public class InterfazReportes extends JFrame {
         new InterfazReportes(gestion); // Crear la interfaz de reportes / Create the reports interface
     }
 }
-

@@ -1,3 +1,25 @@
 0 0 
 0 0 
 0 0 
+
+0 0 
+67 0 
+0 34 Producto B;En Línea;14
+Producto C;Tienda Física;29
+
+0 29 
+14 0 
+0 0 
+0 0 
+0 0 
+0 0 Producto A;En Línea;24
+
+0 0 
+0 0 
+24 0 Producto C;Tienda Física;56
+Producto B;En Línea;3
+Producto reservado:   Producto B  ; Tienda escogida:  En Línea  ; Cantidad de producto:  24
+Producto reservado:   Producto C  ; Tienda escogida:  Tienda Física  ; Cantidad de producto:  34
+Producto reservado:   Producto B  ; Tienda escogida:  En Línea  ; Cantidad de producto:  56
+Producto reservado:   Producto C  ; Tienda escogida:  Tienda Física  ; Cantidad de producto:  7
+Producto reservado:   Producto A  ; Tienda escogida:  En Línea  ; Cantidad de producto:  24
