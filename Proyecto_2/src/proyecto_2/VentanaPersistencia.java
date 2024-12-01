@@ -5,7 +5,9 @@
 package proyecto_2;
 
 /**
- *
+ * Ventana para manejar la persistencia de datos de ventas.
+ * Window to manage sales data persistence.
+ * 
  * @author YESLYDANIELAFIGUEROA
  * @author NICOLELEIVAFALLAS
  */
@@ -14,76 +16,91 @@ import java.awt.*;
 import java.io.*;
 
 public class VentanaPersistencia extends JFrame {
-    private SistemaVentas gestionVentas;
+    private SistemaVentas gestionVentas; // Objeto para gestionar el sistema de ventas / Object to manage the sales system
 
+    /**
+     * Constructor para crear la ventana de persistencia de datos.
+     * Constructor to create the data persistence window.
+     *
+     * @param gestionVentas Sistema de gestión de ventas / Sales management system
+     */
     public VentanaPersistencia(SistemaVentas gestionVentas) {
-        this.gestionVentas = gestionVentas;
+        this.gestionVentas = gestionVentas; // Inicializa el sistema de ventas / Initialize the sales system
 
-        setTitle("Persistencia de Datos");
-        setSize(400, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle("Persistencia de Datos"); // Título de la ventana / Window title
+        setSize(400, 200); // Tamaño de la ventana / Window size
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Acción de cerrar ventana / Window close action
 
-        setLayout(new FlowLayout());
+        setLayout(new FlowLayout()); // Configura el layout de la ventana / Set window layout
 
         // Botón para guardar datos
+        // Button to save data
         JButton botonGuardar = new JButton("Guardar Datos");
-        botonGuardar.addActionListener(e -> guardarDatos());
+        botonGuardar.addActionListener(e -> guardarDatos()); // Acción para guardar los datos / Action to save data
 
         // Botón para cargar datos
+        // Button to load data
         JButton botonCargar = new JButton("Cargar Datos");
-        botonCargar.addActionListener(e -> cargarDatos());
+        botonCargar.addActionListener(e -> cargarDatos()); // Acción para cargar los datos / Action to load data
 
-        add(botonGuardar);
-        add(botonCargar);
+        add(botonGuardar); // Añadir botón de guardar / Add save button
+        add(botonCargar); // Añadir botón de cargar / Add load button
 
-        setVisible(true);
+        setVisible(true); // Hacer visible la ventana / Make the window visible
     }
 
+    /**
+     * Método para guardar los datos de ventas en un archivo.
+     * Method to save sales data to a file.
+     */
     private void guardarDatos() {
-        try (BufferedWriter writer = new BufferedWriter
-        (new FileWriter("ventas.txt"))) {
-            int[][] ventas = gestionVentas.obtenerVentas();
-            for (int[] producto : ventas) {
-                for (int venta : producto) {
-                    writer.write(venta + " ");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("ventas.txt"))) { // Abrir archivo para escritura / Open file for writing
+            int[][] ventas = gestionVentas.obtenerVentas(); // Obtener los datos de ventas / Get sales data
+            for (int[] producto : ventas) { // Iterar sobre las ventas / Iterate over sales
+                for (int venta : producto) { // Iterar sobre las ventas de cada producto / Iterate over the sales of each product
+                    writer.write(venta + " "); // Escribir la venta / Write the sale
                 }
-                writer.newLine();
+                writer.newLine(); // Nueva línea / New line
             }
-            JOptionPane.showMessageDialog
-        (this, "Datos guardados correctamente.");
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente."); // Mensaje de éxito / Success message
         } catch (IOException e) {
-            JOptionPane.showMessageDialog
-        (this, "Error al guardar los datos.");
+            JOptionPane.showMessageDialog(this, "Error al guardar los datos."); // Mensaje de error / Error message
         }
     }
 
+    /**
+     * Método para cargar los datos de ventas desde un archivo.
+     * Method to load sales data from a file.
+     */
     private void cargarDatos() {
-        try (BufferedReader reader = new BufferedReader
-        (new FileReader("ventas.txt"))) {
-            int[][] ventas = gestionVentas.obtenerVentas();
+        try (BufferedReader reader = new BufferedReader(new FileReader("ventas.txt"))) { // Abrir archivo para lectura / Open file for reading
+            int[][] ventas = gestionVentas.obtenerVentas(); // Obtener los datos de ventas / Get sales data
             String line;
-            int row = 0;
-            while ((line = reader.readLine()) != null) {
-                String[] valores = line.split(" ");
-                for (int col = 0; col < valores.length; col++) {
-                    ventas[row][col] = Integer.parseInt(valores[col]);
+            int row = 0; // Índice de fila / Row index
+            while ((line = reader.readLine()) != null) { // Leer cada línea del archivo / Read each line from the file
+                String[] valores = line.split(" "); // Dividir la línea en valores / Split the line into values
+                for (int col = 0; col < valores.length; col++) { // Iterar sobre las columnas / Iterate over the columns
+                    ventas[row][col] = Integer.parseInt(valores[col]); // Asignar el valor de la venta / Assign the sale value
                 }
-                row++;
+                row++; // Incrementar el índice de fila / Increment row index
             }
-            JOptionPane.showMessageDialog
-        (this, "Datos cargados correctamente.");
+            JOptionPane.showMessageDialog(this, "Datos cargados correctamente."); // Mensaje de éxito / Success message
         } catch (IOException e) {
-            JOptionPane.showMessageDialog
-        (this, "Error al cargar los datos.");
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos."); // Mensaje de error / Error message
         }
     }
 
+    /**
+     * Método principal para iniciar la ventana de persistencia.
+     * Main method to launch the persistence window.
+     */
     public static void main(String[] args) {
+        // Crear una instancia del sistema de ventas / Create an instance of the sales system
         SistemaVentas gestion = new SistemaVentas(
-            new String[]{"Producto A", "Producto B", "Producto C"},
-            new String[]{"Tienda Física", "En Línea"}
+            new String[]{"Producto A", "Producto B", "Producto C"}, // Lista de productos / List of products
+            new String[]{"Tienda Física", "En Línea"} // Tipos de canales / Types of channels
         );
-        new VentanaPersistencia(gestion);
+        new VentanaPersistencia(gestion); // Crear la ventana de persistencia / Create the persistence window
     }
 }
 
