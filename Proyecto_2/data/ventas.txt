@@ -1,0 +1,3 @@
+Producto reservado:   Producto A  ; Tienda escogida:  Tienda Física  ; Cantidad de producto:  2
+Producto reservado:   Producto C  ; Tienda escogida:  Tienda Física  ; Cantidad de producto:  2
+Producto reservado:   Producto C  ; Tienda escogida:  Tienda Física  ; Cantidad de producto:  10
