@@ -12,10 +12,12 @@ package proyecto_2;
 import javax.swing.*;
 import java.awt.*;
 
-// Clase que representa la interfaz para mostrar reportes de ventas.
-// This class represents the interface to display sales reports.
+/**
+ * Clase que representa la interfaz para mostrar reportes de ventas.
+ *  This class represents the interface to display sales reports.
+ */
 public class InterfazReportes extends JFrame {
-    private SistemaVentas gestionVentas; // Objeto para manejar el sistema de ventas / Object to manage the sales system.
+    private SistemaVentas gestionVentas; // Object to manage the sales system.
 
     /**
      * Constructor para generar reportes.
@@ -23,50 +25,50 @@ public class InterfazReportes extends JFrame {
      * @param gestionVentas
      */
     public InterfazReportes(SistemaVentas gestionVentas) {
-        this.gestionVentas = gestionVentas; // Inicializa el sistema de ventas / Initialize the sales system.
+        this.gestionVentas = gestionVentas; // Initialize the sales system.
 
-        setTitle("Reportes de Ventas"); // Título de la ventana / Window title
-        setSize(500, 400); // Tamaño de la ventana / Window size
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Configuración de cierre de ventana / Window close operation
-        setLayout(new BorderLayout()); // Configuración del layout de la ventana / Layout setup
+        setTitle("Reportes de Ventas"); 
+        setSize(500, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        setLayout(new BorderLayout()); //Layout setup
 
-        // Panel para estadísticas
+        
         // Panel for statistics
-        JPanel panelEstadisticas = new JPanel(new GridLayout(3, 1)); // Panel con un layout de 3 filas / Panel with a 3-row layout
-        int[][] ventas = gestionVentas.obtenerVentas(); // Obtener datos de ventas / Get sales data
+        JPanel panelEstadisticas = new JPanel(new GridLayout(3, 1)); 
+        int[][] ventas = gestionVentas.obtenerVentas(); 
         
         // Mostrar total de ventas
         // Display total sales
         JLabel totalVentas = new JLabel("Total Ventas: " + 
-                calcularTotalVentas(ventas)); // Calcula y muestra el total de ventas / Calculate and display the total sales
+                calcularTotalVentas(ventas)); //Calculate and display the total sales
         
         // Mostrar promedio semanal de ventas
         // Display weekly average sales
         JLabel promedioVentas = new JLabel("Promedio Semanal: " 
-                + calcularPromedioSemanal(ventas)); // Calcula y muestra el promedio semanal / Calculate and display the weekly average
+                + calcularPromedioSemanal(ventas)); //Calculate and display the weekly average
         
         // Mostrar tendencias de ventas
         // Display sales trends
         JLabel tendencias = new JLabel("Tendencias: " + 
-                detectarTendencias(ventas)); // Detecta y muestra las tendencias de ventas / Detect and display sales trends
+                detectarTendencias(ventas)); //Detect and display sales trends
 
-        // Añadir las etiquetas al panel de estadísticas
+      
         // Add the labels to the statistics panel
-        panelEstadisticas.add(totalVentas); // Añadir total de ventas / Add total sales label
-        panelEstadisticas.add(promedioVentas); // Añadir promedio de ventas / Add sales average label
-        panelEstadisticas.add(tendencias); // Añadir tendencias / Add trends label
+        panelEstadisticas.add(totalVentas); // Add total sales label
+        panelEstadisticas.add(promedioVentas); //Add sales average label
+        panelEstadisticas.add(tendencias); //Add trends label
 
-        // Añadir el panel al centro de la ventana
+      
         // Add the panel to the center of the window
-        add(panelEstadisticas, BorderLayout.CENTER); // Añadir el panel de estadísticas al centro / Add the statistics panel to the center
+        add(panelEstadisticas, BorderLayout.CENTER); //Add the statistics panel to the center
 
         // Botón para regresar
         // Button to go back
-        JButton botonRegresar = new JButton("Regresar"); // Crear el botón "Regresar" / Create the "Go back" button
-        botonRegresar.addActionListener(e -> dispose()); // Cierra la ventana actual cuando se presiona el botón / Close the current window when button is pressed
-        add(botonRegresar, BorderLayout.SOUTH); // Añadir el botón al sur de la ventana / Add the button to the bottom of the window
+        JButton botonRegresar = new JButton("Regresar"); 
+        botonRegresar.addActionListener(e -> dispose()); 
+        add(botonRegresar, BorderLayout.SOUTH); 
 
-        setVisible(true); // Hacer visible la ventana / Make the window visible
+        setVisible(true); //Make the window visible
     }
 
     /**
@@ -76,10 +78,10 @@ public class InterfazReportes extends JFrame {
      * @return Total de ventas / Total sales
      */
     private int calcularTotalVentas(int[][] ventas) {
-        int total = 0; // Inicializar total / Initialize total
-        for (int[] producto : ventas) { // Iterar sobre los productos / Iterate over products
-            for (int venta : producto) { // Iterar sobre las ventas de cada producto / Iterate over the sales of each product
-                total += venta; // Sumar la venta al total / Add the sale to the total
+        int total = 0; //Initialize total
+        for (int[] producto : ventas) { //Iterate over products
+            for (int venta : producto) { //Iterate over the sales of each product
+                total += venta; //Add the sale to the total
             }
         }
         return total; // Retornar el total de ventas / Return the total sales
@@ -92,8 +94,8 @@ public class InterfazReportes extends JFrame {
      * @return Promedio semanal de ventas / Weekly average sales
      */
     private double calcularPromedioSemanal(int[][] ventas) {
-        int total = calcularTotalVentas(ventas); // Calcular el total de ventas / Calculate the total sales
-        return total / 7.0; // Asume 7 días en la semana / Assumes 7 days in the week
+        int total = calcularTotalVentas(ventas); // Calculate the total sales
+        return total / 7.0; // Assumes 7 days in the week
     }
 
     /**
@@ -109,7 +111,7 @@ public class InterfazReportes extends JFrame {
          * Here you can implement a more detailed analysis using the 
          * AnalisisRecursivo class.
          */
-        return "Tendencias aún no implementadas"; // Retorna un mensaje indicando que las tendencias no están implementadas / Returns a message indicating that trends are not implemented
+        return "Tendencias aún no implementadas"; //Returns a message indicating that trends are not implemented
     }
 
     /**
@@ -117,11 +119,11 @@ public class InterfazReportes extends JFrame {
      * Main method to launch the reports interface.
      */
     public static void main(String[] args) {
-        // Crear una instancia del sistema de ventas / Create an instance of the sales system
+        //Create an instance of the sales system
         SistemaVentas gestion = new SistemaVentas(
             new String[]{"Producto A", "Producto B", "Producto C"},
             new String[]{"Tienda Física", "En Línea"}
         );
-        new InterfazReportes(gestion); // Crear la interfaz de reportes / Create the reports interface
+        new InterfazReportes(gestion); //Create the reports interface
     }
 }

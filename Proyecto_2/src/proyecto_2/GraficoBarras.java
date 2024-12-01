@@ -11,23 +11,21 @@ package proyecto_2;
  */
 import javax.swing.*;
 import java.awt.*;
-
 /**
- * Esta clase representa un gráfico de barras para visualizar las ventas de productos
- * en diferentes canales. Permite mostrar las ventas de varios productos a través
- * de barras de diferentes colores para cada canal.
+ * This class represents a bar chart to visualize product sales across different channels.
  */
 public class GraficoBarras extends JPanel {
-    private int[][] ventas; // Matriz que almacena las ventas de cada producto en cada canal.
-    private String[] productos; // Lista de productos.
-    private String[] canales; // Lista de canales.
+
+    private int[][] ventas; // Array that stores the sales for each product.
+    private String[] productos; // List of product names.
+    private String[] canales; // List of sales channels.
 
     /**
-     * Constructor para inicializar los datos del gráfico.
+     * Constructor to initialize the chart data.
      *
-     * @param ventas    Array bidimensional con las ventas de cada producto en cada canal.
-     * @param productos Lista de nombres de los productos.
-     * @param canales   Lista de canales de venta (por ejemplo, tienda física, en línea).
+     * @param ventas 2D array with sales data for each product and channel.
+     * @param productos List of product names.
+     * @param canales List of sales channels (e.g., physical store, online).
      */
     public GraficoBarras(int[][] ventas, String[] productos, String[] canales) {
         this.ventas = ventas;
@@ -36,28 +34,29 @@ public class GraficoBarras extends JPanel {
     }
 
     /**
-     * Método para dibujar el gráfico de barras.
+     * Method to draw the bar chart.
      *
-     * @param g Objeto gráfico utilizado para dibujar.
+     * @param g Graphics object used for drawing.
      */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // Fondo degradado ajustado
-        GradientPaint fondo = new GradientPaint(0, 0, new Color(220, 240, 255), getWidth(), getHeight(), new Color(190, 220, 240));
+        // Set background gradient
+        GradientPaint fondo = new GradientPaint(0, 0, new Color(220, 240, 255),
+                 getWidth(), getHeight(), new Color(190, 220, 240));
         g2d.setPaint(fondo);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        // Configuración inicial
-        int anchoBarra = 50; // Ancho de cada barra
-        int espacio = 20; // Espacio entre grupos de barras
-        int margenIzquierdo = 100; // Margen izquierdo del gráfico
-        int margenInferior = getHeight() - 80; // Margen inferior
-        int alturaMaxima = 300; // Altura máxima de las barras
+        // Initial settings
+        int anchoBarra = 50; // Width of each bar
+        int espacio = 20; // Space between bar groups
+        int margenIzquierdo = 100; // Left margin of the chart
+        int margenInferior = getHeight() - 80; // Bottom margin
+        int alturaMaxima = 300; // Maximum height of the bars
 
-        // Encontrar la mayor cantidad de ventas para escalar las barras
+        // Find the maximum sales value to scale the bars
         int maxVentas = 0;
         for (int[] producto : ventas) {
             for (int canal : producto) {
@@ -65,23 +64,23 @@ public class GraficoBarras extends JPanel {
             }
         }
 
-        // Configuración del estilo de las líneas (activando antialiasing)
+        // Enable anti-aliasing for smooth lines
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Dibujar el eje vertical (Y)
+        // Draw the vertical axis (Y)
         g2d.setColor(Color.BLACK);
         g2d.drawLine(margenIzquierdo, margenInferior, margenIzquierdo, margenInferior - alturaMaxima);
-        g2d.drawString("Ventas", margenIzquierdo - 50, margenInferior - alturaMaxima - 10);
+        g2d.drawString("Sales", margenIzquierdo - 50, margenInferior - alturaMaxima - 10);
 
-        // Dibujar el eje horizontal (X)
+        // Draw the horizontal axis (X)
         g2d.drawLine(margenIzquierdo, margenInferior, getWidth() - 50, margenInferior);
-        g2d.drawString("Productos", getWidth() - 100, margenInferior + 30);
+        g2d.drawString("Products", getWidth() - 100, margenInferior + 30);
 
-        // Colores personalizados con alto contraste para las barras
+        // Custom colors for the bars
         Color[] colores = {new Color(70, 130, 180), new Color(255, 99, 71), new Color(34, 139, 34)};
         Color[] bordes = {new Color(0, 102, 153), new Color(204, 51, 51), new Color(0, 102, 51)};
 
-        // Dibujar las barras
+        // Draw the bars
         int x = margenIzquierdo + espacio;
         for (int i = 0; i < productos.length; i++) {
             for (int j = 0; j < canales.length; j++) {
@@ -95,7 +94,7 @@ public class GraficoBarras extends JPanel {
             x += espacio;
         }
 
-        // Dibujar etiquetas de productos
+        // Draw product labels
         x = margenIzquierdo + espacio + anchoBarra / 2;
         g2d.setFont(new Font("Arial", Font.PLAIN, 12));
         for (String producto : productos) {
@@ -104,7 +103,7 @@ public class GraficoBarras extends JPanel {
             x += (anchoBarra * canales.length) + espacio;
         }
 
-        // Dibujar la leyenda
+        // Draw legend
         int leyendaX = getWidth() - 160;
         int leyendaY = 30;
         g2d.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -119,24 +118,25 @@ public class GraficoBarras extends JPanel {
     }
 
     /**
-     * Método principal para probar el gráfico.
+     * Main method to test the chart.
+     * @param args
      */
     public static void main(String[] args) {
-        // Datos de ejemplo
+        // Example data
         int[][] ventas = {
-            {120, 200}, // Producto A
-            {150, 100}, // Producto B
-            {90, 250}   // Producto C
+            {120, 200}, // Product A
+            {150, 100}, // Product B
+            {90, 250} // Product C
         };
-        String[] productos = {"Producto A", "Producto B", "Producto C"};
-        String[] canales = {"Tienda Física", "En Línea"};
+        String[] productos = {"Product A", "Product B", "Product C"};
+        String[] canales = {"Physical Store", "Online"};
 
-        // Crear ventana para mostrar el gráfico
-        JFrame ventana = new JFrame("Gráfico de Ventas");
+        // Create window to display the chart
+        JFrame ventana = new JFrame("Sales Chart");
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setSize(800, 600);
 
-        // Crear el gráfico y añadirlo a la ventana
+        // Create the chart and add it to the window
         GraficoBarras grafico = new GraficoBarras(ventas, productos, canales);
         ventana.add(grafico);
 

@@ -41,7 +41,7 @@ public class AnalisisRecursivo {
      */
     public static boolean detectarTendencia(int[] ventas, 
             int index, String tendencia) {
-        if (index == ventas.length - 1) return true; // Caso base
+        if (index == ventas.length - 1) return true; //base case
         if (tendencia.equals("aumento")
                 && ventas[index] <= ventas[index + 1]) {
             return detectarTendencia(ventas, index + 1, tendencia);

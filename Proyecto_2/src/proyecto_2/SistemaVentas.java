@@ -3,108 +3,113 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package proyecto_2;
-
 /**
- * Clase para gestionar las ventas en la tienda.
  * Class to manage store sales.
- * 
+ * Clase para gestionar las ventas en la tienda.
+ *
  * @author YESLYDANIELAFIGUEROA
  * @author NICOLELEIVAFALLAS
  */
 public class SistemaVentas {
 
-    private int[][] ventas; // Array bidimensional para almacenar las ventas / 2D array to store sales
-    private String[] productos; // Lista de productos / List of products
-    private String[] canales; // Tipos de canales (tienda física/en línea) / Types of channels (physical store/online)
+    private int[][] ventas; // 2D array to store sales
+    private String[] productos; // List of products
+    private String[] canales; // List of sales channels
 
     /**
-     * Constructor para inicializar la gestión de ventas.
      * Constructor to initialize sales management.
+     * Constructor para inicializar la gestión de ventas.
      *
-     * @param productos Lista de productos disponibles / List of available products
-     * @param canales Tipos de canales de venta / Types of sales channels
+     * @param productos List of available products
+     * @param canales List of sales channels
      */
     public SistemaVentas(String[] productos, String[] canales) {
         this.productos = productos;
         this.canales = canales;
-        this.ventas = new int[productos.length][canales.length]; // Inicializa el array de ventas / Initializes the sales array
+        this.ventas = new int[productos.length][canales.length];
     }
-     
+
     /**
-     * Metodo get para obtener las ventas.
      * Get method to obtain the sales.
-     * @return Array bidimensional con las ventas registradas / 2D array with recorded sales
+     * Metodo get para obtener las ventas.
+     *
+     * @return 2D array with recorded sales
      */
     public int[][] getVentas() {
         return ventas;
     }
 
     /**
-     * Metodo set para establecer las ventas.
      * Set method to set the sales.
-     * @param ventas Array bidimensional con las ventas registradas / 2D array with recorded sales
+     * Metodo set para establecer las ventas.
+     *
+     * @param ventas 2D array with recorded sales
      */
     public void setVentas(int[][] ventas) {
         this.ventas = ventas;
     }
 
     /**
-     * Metodo get para obtener los productos.
      * Get method to obtain the products.
-     * @return Lista de productos / List of products
+     * Metodo get para obtener los productos.
+     *
+     * @return List of products
      */
     public String[] getProductos() {
         return productos;
     }
 
     /**
-     * Metodo set para establecer los productos.
      * Set method to set the products.
-     * @param productos Lista de productos / List of products
+     * Metodo set para establecer los productos.
+     *
+     * @param productos List of products
      */
     public void setProductos(String[] productos) {
         this.productos = productos;
     }
 
     /**
-     * Metodo get para obtener los canales.
      * Get method to obtain the channels.
-     * @return Lista de canales / List of channels
+     * Metodo get para obtener los canales.
+     *
+     * @return List of channels
      */
     public String[] getCanales() {
         return canales;
     }
 
     /**
-     * Metodo set para establecer los canales.
      * Set method to set the channels.
-     * @param canales Lista de canales / List of channels
+     * Metodo set para establecer los canales.
+     *
+     * @param canales List of channels
      */
     public void setCanales(String[] canales) {
         this.canales = canales;
     }
 
     /**
-     * Registrar una venta.
      * Register a sale.
+     * Registrar una venta.
      *
-     * @param producto Índice del producto vendido / Product index sold
-     * @param canal Índice del canal de venta / Sales channel index
-     * @param cantidad Cantidad vendida / Quantity sold
+     * @param producto Product index sold
+     * @param canal Sales channel index
+     * @param cantidad Quantity sold
      */
     public void registrarVenta(int producto, int canal, int cantidad) {
         if (producto >= 0 && producto < productos.length && canal >= 0 && canal < canales.length) {
-            ventas[producto][canal] += cantidad; // Registra la venta / Registers the sale
+            ventas[producto][canal] += cantidad; // Registers the sale
         } else {
-            System.out.println("Error: Índice de producto o canal fuera de rango."); // Error si los índices están fuera de rango / Error if the indices are out of range
+            System.out.println("Error: Índice de producto o canal fuera de rango.");
         }
     }
 
     /**
-     * Obtener las ventas por producto y canal.
      * Get sales by product and channel.
+     * Obtener las ventas por producto y canal.
      *
-     * @return Array bidimensional con las ventas registradas / 2D array with recorded sales
+     * @return 2D array with recorded sales
      */
     public int[][] obtenerVentas() {
         return ventas;

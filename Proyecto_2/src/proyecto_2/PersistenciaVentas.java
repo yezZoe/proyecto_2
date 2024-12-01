@@ -3,61 +3,61 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto_2;
-
 /**
+ * Class for sales persistence using exceptions.
+ * Clase para la persistencia de ventas usando excepciones.
  *
  * @author YESLYDANIELAFIGUEROA
  * @author NICOLELEIVAFALLAS
  */
-import java.io.*;
+import java.io.*;  
 
 public class PersistenciaVentas {
 
     /**
+     * Saves sales data to a text file.
      * Guarda las ventas en un archivo de texto.
-     * Saves sales in a text file.
-     * 
-     * @param ventas   Array bidimensional con las ventas. / 2D array with the sales data.
-     * @param filename Nombre del archivo. / Name of the file.
+     *
+     * @param ventas Array with sales data.
+     * @param filename File name to save the sales data.
      */
     public static void guardarVentas(int[][] ventas, String filename) {
-        try (BufferedWriter writer = 
-                new BufferedWriter(new FileWriter(filename))) { // Abrir el archivo para escritura / Open the file for writing
-            for (int[] producto : ventas) { // Iterar sobre cada producto / Iterate over each product
-                for (int venta : producto) { // Iterar sobre las ventas de cada producto / Iterate over the sales of each product
-                    writer.write(venta + " "); // Escribir la venta en el archivo / Write the sale to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {  
+            // Write each sale entry to the file
+            for (int[] producto : ventas) {   
+                for (int venta : producto) { 
+                    writer.write(venta + " "); // Write sale value followed by a space
                 }
-                writer.newLine(); // Añadir una nueva línea después de cada producto / Add a new line after each product
+                writer.newLine();  // New line after each product's sales data
             }
-        } catch (IOException e) { // Manejo de excepciones / Exception handling
-            e.printStackTrace(); // Imprimir el error en la consola / Print the error to the console
+        } catch (IOException e) {  // Handle exceptions
+            e.printStackTrace();  // Print error to console 
         }
     }
 
     /**
+     * Loads sales data from a text file.
      * Carga las ventas desde un archivo de texto.
-     * Loads sales from a text file.
-     * 
-     * @param filename Nombre del archivo. / Name of the file.
-     * @return Array bidimensional con las ventas. / 2D array with the sales data.
+     *
+     * @param filename Name of the file to load the sales data from.
+     * @return Array with sales data.
      */
     public static int[][] cargarVentas(String filename) {
-        int[][] ventas = new int[3][2]; //Cambia las dimensiones según tu diseño / Change the dimensions according to your design
-        try (BufferedReader reader =
-                new BufferedReader(new FileReader(filename))) { // Abrir el archivo para lectura / Open the file for reading
+        int[][] ventas = new int[3][2]; 
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) { 
             String line;
-            int row = 0; // Fila actual en el array / Current row in the array
-            while ((line = reader.readLine()) != null) { // Leer cada línea del archivo / Read each line from the file
-                String[] values = line.split(" "); // Dividir la línea en valores / Split the line into values
-                for (int col = 0; col < values.length; col++) { // Iterar sobre los valores / Iterate over the values
-                    ventas[row][col] = Integer.parseInt(values[col]); // Convertir a entero y guardar en el array / Convert to int and store in the array
+            int row = 0;  
+            while ((line = reader.readLine()) != null) {  
+                String[] values = line.split(" "); 
+              for (int col = 0; col < values.length; col++) {
+                ventas[row][col] = Integer.parseInt(values[col]);
                 }
-                row++; // Incrementar la fila / Increment the row
+                row++;  // Increment row for each line in the file
             }
-        } catch (IOException e) { // Manejo de excepciones / Exception handling
-            e.printStackTrace(); // Imprimir el error en la consola / Print the error to the console
+        } catch (IOException e) {  // Handle exceptions (Manejo de excepciones)
+            e.printStackTrace();  // Print error (Imprimir error)
         }
-        return ventas; // Retornar las ventas cargadas / Return the loaded sales
+        return ventas;  // Return loaded sales data (Retornar ventas cargadas)
     }
 }
 

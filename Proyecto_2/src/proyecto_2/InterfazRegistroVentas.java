@@ -12,60 +12,55 @@ package proyecto_2;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-
 import java.util.List;
 
+/**
+ * Interfaz para registrar ventas y gestionar reportes. Interface to register
+ * sales and manage reports.
+ */
 public class InterfazRegistroVentas extends JFrame {
-    private SistemaVentas gestionVentas; // Objeto para manejar el sistema de ventas
-    private GestorArchivo gestorArchivo; // Objeto para gestionar la persistencia en archivo
+
+    private SistemaVentas gestionVentas; // Object to manage the sales system
+    private GestorArchivo gestorArchivo; // Object to manage file persistence
 
     /**
-     * Constructor para crear la interfaz gráfica.
+     * Constructor to create the graphical interface.
      */
     public InterfazRegistroVentas() {
-        // Inicialización del sistema de ventas con productos y canales predefinidos
+        // Initialize sales system with predefined products and channels
         gestionVentas = new SistemaVentas(
-            new String[]{"Producto A", "Producto B", "Producto C"},
-            new String[]{"Tienda Física", "En Línea"}
+                new String[]{"Producto A", "Producto B", "Producto C"},
+                new String[]{"Tienda Física", "En Línea"}
         );
 
-        // Inicialización del gestor de archivos
+        // Initialize file manager
         gestorArchivo = new GestorArchivo();
 
-        // Configuración de la ventana principal
+        // Configure the main window
         setTitle("N&Y Essence");
         setSize(450, 350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Establecer un diseño más profesional
+        // Main panel configuration
         JPanel panelPrincipal = new JPanel(new BorderLayout());
-        panelPrincipal.setBackground(new Color(230, 220, 255)); // Fondo lila suave
-        panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10)); // Márgenes
+        panelPrincipal.setBackground(new Color(230, 220, 255));
+        panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Crear barra de menú estilizada
+        // Create menu bar
         JMenuBar barraMenu = new JMenuBar();
-        barraMenu.setBackground(new Color(200, 180, 255)); // Fondo lila más oscuro
+        barraMenu.setBackground(new Color(200, 180, 255));
         barraMenu.setBorderPainted(false);
         barraMenu.setOpaque(true);
 
+        // Menu and items
         JMenu menuOpciones = new JMenu("Menú");
-        menuOpciones.setFont(new Font("Arial", Font.BOLD, 14));
-        menuOpciones.setForeground(new Color(80, 0, 120)); // Texto púrpura oscuro
-
         JMenuItem itemVerReportes = new JMenuItem("Ver Reportes");
         JMenuItem itemVerReportesAvanzados = new JMenuItem("Ver Reportes Avanzados");
         JMenuItem itemVerGraficoVentas = new JMenuItem("Ver Gráfico de Ventas");
         JMenuItem itemCargarVentas = new JMenuItem("Cargar Ventas");
         JMenuItem itemSalir = new JMenuItem("Salir");
 
-        // Configuración de estilo para elementos del menú
-        for (JMenuItem item : new JMenuItem[]{itemVerReportes, itemVerReportesAvanzados, itemVerGraficoVentas, itemCargarVentas, itemSalir}) {
-            item.setFont(new Font("Arial", Font.PLAIN, 13));
-            item.setBackground(new Color(245, 240, 255));
-            item.setForeground(new Color(60, 0, 90));
-        }
-
-        // Añadir acciones
+        // Add actions to menu items
         itemVerReportes.addActionListener(e -> new InterfazReportes(gestionVentas));
         itemVerReportesAvanzados.addActionListener(e -> new VentanaReportesAvanzados(gestionVentas));
         itemVerGraficoVentas.addActionListener(e -> {
@@ -89,6 +84,7 @@ public class InterfazRegistroVentas extends JFrame {
         });
         itemSalir.addActionListener(e -> System.exit(0));
 
+        // Add menu items to menu and menu to menu bar
         menuOpciones.add(itemVerReportes);
         menuOpciones.add(itemVerGraficoVentas);
         menuOpciones.add(itemCargarVentas);
@@ -96,13 +92,14 @@ public class InterfazRegistroVentas extends JFrame {
         menuOpciones.add(itemSalir);
         barraMenu.add(menuOpciones);
 
-        // Asociar la barra de menú con la ventana
+        // Associate the menu bar with the window
         setJMenuBar(barraMenu);
 
-        // Panel de entrada de datos
+        // Data input panel
         JPanel panelEntrada = new JPanel(new GridLayout(4, 2, 10, 10));
         panelEntrada.setBackground(new Color(230, 220, 255));
 
+        // Create input components
         JLabel etiquetaProducto = new JLabel("Producto:");
         JComboBox<String> comboProducto = new JComboBox<>(gestionVentas.getProductos());
         JLabel etiquetaCanal = new JLabel("Canal:");
@@ -110,6 +107,7 @@ public class InterfazRegistroVentas extends JFrame {
         JLabel etiquetaCantidad = new JLabel("Cantidad:");
         JTextField campoCantidad = new JTextField();
 
+        // Button to register sale
         JButton botonRegistrar = new JButton("Registrar Venta");
         botonRegistrar.setBackground(new Color(200, 180, 255));
         botonRegistrar.setForeground(Color.WHITE);
@@ -131,12 +129,7 @@ public class InterfazRegistroVentas extends JFrame {
             }
         });
 
-        // Añadir componentes estilizados al panel
-        for (JComponent comp : new JComponent[]{etiquetaProducto, etiquetaCanal, etiquetaCantidad}) {
-            comp.setFont(new Font("Arial", Font.PLAIN, 14));
-            comp.setForeground(new Color(80, 0, 120));
-        }
-
+        // Add components to data input panel
         panelEntrada.add(etiquetaProducto);
         panelEntrada.add(comboProducto);
         panelEntrada.add(etiquetaCanal);
@@ -145,14 +138,17 @@ public class InterfazRegistroVentas extends JFrame {
         panelEntrada.add(campoCantidad);
         panelEntrada.add(botonRegistrar);
 
-        // Añadir paneles al marco principal
+        // Add data input panel to main panel
         panelPrincipal.add(panelEntrada, BorderLayout.CENTER);
         add(panelPrincipal);
 
-        // Hacer visible la ventana
+        // Make window visible
         setVisible(true);
     }
 
+    /**
+     * Main method to launch the application.
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(InterfazRegistroVentas::new);
     }
