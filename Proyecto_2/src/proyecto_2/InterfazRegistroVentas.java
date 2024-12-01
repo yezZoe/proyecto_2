@@ -97,7 +97,17 @@ public class InterfazRegistroVentas extends JFrame {
                 ventanaGrafico.setVisible(true); // Hacer visible la ventana del gráfico / Make the chart window visible
             }
         });
-        
+         // Opción "Ventana de Persistencia" (la nueva opción que agregamos)
+        // Option "Persistence Window" (the new option we added)
+        JMenuItem itemVentanaPersistencia = new JMenuItem("Ventana de Persistencia");
+        itemVentanaPersistencia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abre la nueva ventana de persistencia cuando se selecciona el ítem del menú
+                // Open the persistence window when the menu item is selected
+                new VentanaPersistencia(gestionVentas); // Crear una nueva instancia de VentanaPersistencia / Create a new instance of the Persistence window
+            }
+        });
         // Opción "Salir" en el menú
         // Option "Exit" in the menu
         JMenuItem itemSalir = new JMenuItem("Salir");
@@ -114,6 +124,7 @@ public class InterfazRegistroVentas extends JFrame {
         // Add the options to the menu
         menuOpciones.add(itemVerReportes);  // Añadimos la opción "Ver Reportes" / Add the "View Reports" option
         menuOpciones.add(itemVerGraficoVentas);  // Añadimos la opción "Ver Gráfico de Ventas" / Add the "View Sales Chart" option
+         menuOpciones.add(itemVentanaPersistencia);  // Añadir la nueva opción de persistencia al menú / Add the new persistence option to the menu
         menuOpciones.add(itemVerReportesAvanzados);  // Añadimos la opción "Ver Reportes Avanzados" / Add the "View Advanced Reports" option
         menuOpciones.add(itemSalir);  // Añadimos la opción "Salir" / Add the "Exit" option
         barraMenu.add(menuOpciones);  // Añadir el menú a la barra de menú / Add the menu to the menu bar

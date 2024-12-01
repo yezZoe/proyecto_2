@@ -75,22 +75,39 @@ public class VentanaReportesAvanzados extends JFrame {
         setVisible(true); // Hacer visible la ventana / Make the window visible
     }
 
+   /**
+     * Método recursivo para calcular el total de ventas.
+     * Recursive method to calculate total sales.
+     *
+     * @param ventas Matriz de ventas / Sales data matrix
+     * @param fila   Fila actual que estamos procesando / Current row we're processing
+     * @param columna Columna actual que estamos procesando / Current column we're processing
+     * @return Total de ventas / Total sales
+     */
+    private int calcularTotalVentasRecursivo(int[][] ventas, int fila, int columna) {
+        if (fila >= ventas.length) { // Caso base: si llegamos al final de las filas / Base case: if we reach the end of rows
+            return 0;
+        }
+
+        if (columna >= ventas[fila].length) { // Caso base: si llegamos al final de las columnas de la fila / Base case: if we reach the end of the columns of the row
+            return calcularTotalVentasRecursivo(ventas, fila + 1, 0); // Llamada recursiva con la siguiente fila / Recursive call with the next row
+        }
+
+        // Sumar la venta de la celda actual y llamar recursivamente a la siguiente columna / Add the current sale and recursively call the next column
+        return ventas[fila][columna] + calcularTotalVentasRecursivo(ventas, fila, columna + 1);
+    }
+
     /**
-     * Método para calcular el total de ventas.
-     * Method to calculate total sales.
+     * Método para calcular el total de ventas usando recursión.
+     * Method to calculate total sales using recursion.
      *
      * @param ventas Matriz de ventas / Sales data matrix
      * @return Total de ventas / Total sales
      */
     private int calcularTotalVentas(int[][] ventas) {
-        int total = 0; // Inicializar total / Initialize total
-        for (int[] producto : ventas) { // Iterar sobre los productos / Iterate over the products
-            for (int venta : producto) { // Iterar sobre las ventas de cada producto / Iterate over the sales of each product
-                total += venta; // Sumar las ventas al total / Add sales to total
-            }
-        }
-        return total; // Retornar el total / Return the total
+        return calcularTotalVentasRecursivo(ventas, 0, 0); // Iniciar desde la primera fila y columna / Start from the first row and column
     }
+
 
     /**
      * Método para calcular el promedio semanal de ventas.

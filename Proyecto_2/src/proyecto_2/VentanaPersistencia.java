@@ -50,45 +50,84 @@ public class VentanaPersistencia extends JFrame {
     }
 
     /**
-     * Método para guardar los datos de ventas en un archivo.
-     * Method to save sales data to a file.
+     * Método recursivo para guardar los datos de ventas en un archivo.
+     * Recursive method to save sales data to a file.
+     *
+     * @param ventas Matriz de ventas / Sales matrix
+     * @param fila Índice de la fila / Row index
+     * @param col Índice de la columna / Column index
+     */
+private void guardarDatosRecursivo(int[][] ventas, int fila, int col) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("ventas.txt", true))) { // Abrir archivo en modo append / Open file in append mode
+        // Caso base: Si llegamos al final de las filas, terminamos
+        if (fila == ventas.length) {
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente."); // Mensaje de éxito / Success message
+            return;
+        }
+
+        // Si hemos terminado de procesar una fila, avanzamos a la siguiente
+        if (col == ventas[fila].length) {
+            writer.newLine(); // Escribir una nueva línea después de cada fila / Write a new line after each row
+            guardarDatosRecursivo(ventas, fila + 1, 0); // Llamada recursiva para la siguiente fila / Recursive call for the next row
+            return;
+        }
+
+        // Escribir la venta en el archivo / Write the sale in the file
+        writer.write(ventas[fila][col] + " ");
+        
+        // Llamada recursiva para la siguiente columna / Recursive call for the next column
+        guardarDatosRecursivo(ventas, fila, col + 1);
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar los datos."); // Mensaje de error / Error message
+    }
+}
+
+  /**
+     * Método original para llamar a la versión recursiva de guardar datos.
+     * Original method to call the recursive version of saving data.
      */
     private void guardarDatos() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("ventas.txt"))) { // Abrir archivo para escritura / Open file for writing
-            int[][] ventas = gestionVentas.obtenerVentas(); // Obtener los datos de ventas / Get sales data
-            for (int[] producto : ventas) { // Iterar sobre las ventas / Iterate over sales
-                for (int venta : producto) { // Iterar sobre las ventas de cada producto / Iterate over the sales of each product
-                    writer.write(venta + " "); // Escribir la venta / Write the sale
-                }
-                writer.newLine(); // Nueva línea / New line
-            }
-            JOptionPane.showMessageDialog(this, "Datos guardados correctamente."); // Mensaje de éxito / Success message
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar los datos."); // Mensaje de error / Error message
-        }
+    int[][] ventas = gestionVentas.obtenerVentas(); // Obtener los datos de ventas / Get sales data
+    guardarDatosRecursivo(ventas, 0, 0); // Llamada inicial a la función recursiva / Initial call to the recursive function
+}
+
+  /**
+     * Método recursivo para cargar los datos de ventas desde un archivo.
+     * Recursive method to load sales data from a file.
+     *
+     * @param reader BufferedReader para leer el archivo / BufferedReader to read the file
+     * @param ventas Matriz de ventas / Sales matrix
+     * @param fila Índice de la fila / Row index
+     * @throws IOException Si ocurre un error al leer el archivo / If an error occurs while reading the file
+     */
+   private void cargarDatosRecursivo(BufferedReader reader, int[][] ventas, int fila) throws IOException {
+    String line = reader.readLine(); // Leer una línea del archivo / Read a line from the file
+    if (line == null) {
+        JOptionPane.showMessageDialog(this, "Datos cargados correctamente."); // Mensaje de éxito / Success message
+        return;
     }
 
-    /**
-     * Método para cargar los datos de ventas desde un archivo.
-     * Method to load sales data from a file.
-     */
-    private void cargarDatos() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("ventas.txt"))) { // Abrir archivo para lectura / Open file for reading
-            int[][] ventas = gestionVentas.obtenerVentas(); // Obtener los datos de ventas / Get sales data
-            String line;
-            int row = 0; // Índice de fila / Row index
-            while ((line = reader.readLine()) != null) { // Leer cada línea del archivo / Read each line from the file
-                String[] valores = line.split(" "); // Dividir la línea en valores / Split the line into values
-                for (int col = 0; col < valores.length; col++) { // Iterar sobre las columnas / Iterate over the columns
-                    ventas[row][col] = Integer.parseInt(valores[col]); // Asignar el valor de la venta / Assign the sale value
-                }
-                row++; // Incrementar el índice de fila / Increment row index
-            }
-            JOptionPane.showMessageDialog(this, "Datos cargados correctamente."); // Mensaje de éxito / Success message
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar los datos."); // Mensaje de error / Error message
-        }
+    String[] valores = line.split(" "); // Dividir la línea en valores / Split the line into values
+    for (int col = 0; col < valores.length; col++) {
+        ventas[fila][col] = Integer.parseInt(valores[col]); // Asignar el valor de la venta / Assign the sale value
     }
+
+    // Llamada recursiva para la siguiente fila / Recursive call for the next row
+    cargarDatosRecursivo(reader, ventas, fila + 1);
+}
+ /**
+     * Método original para llamar a la versión recursiva de cargar datos.
+     * Original method to call the recursive version of loading data.
+     */
+   private void cargarDatos() {
+    try (BufferedReader reader = new BufferedReader(new FileReader("ventas.txt"))) { // Abrir archivo para lectura / Open file for reading
+        int[][] ventas = gestionVentas.obtenerVentas(); // Obtener los datos de ventas / Get sales data
+        cargarDatosRecursivo(reader, ventas, 0); // Llamada inicial a la función recursiva / Initial call to the recursive function
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Error al cargar los datos."); // Mensaje de error / Error message
+    }
+}
+
 
     /**
      * Método principal para iniciar la ventana de persistencia.
