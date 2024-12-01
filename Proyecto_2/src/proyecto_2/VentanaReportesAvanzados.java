@@ -57,23 +57,30 @@ public class VentanaReportesAvanzados extends JFrame {
         tabla.setBackground(new Color(255, 255, 255));
         tabla.setFont(new Font("Arial", Font.PLAIN, 14)); 
         tabla.setRowHeight(30); 
-        tabla.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        tabla.getTableHeader().setFont(new Font
+        ("Arial", Font.BOLD, 14));
         tabla.getTableHeader().setBackground(new Color(200, 180, 255));
         tabla.getTableHeader().setForeground(Color.WHITE);
         JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(120, 0, 150), 2));
+        scrollPane.setBorder(
+                BorderFactory.createLineBorder
+        (new Color(120, 0, 150), 2));
         panel.add(scrollPane, BorderLayout.CENTER);
 
         //  Panel to display sales statistics.
         JPanel panelEstadisticas = new JPanel(new GridLayout(2, 1));
         panelEstadisticas.setBackground(new Color(230, 220, 255));
-        panelEstadisticas.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panelEstadisticas.setBorder(
+                BorderFactory.createEmptyBorder
+        (10, 10, 10, 10));
 
-        JLabel totalVentas = new JLabel("Total Ventas: " + calcularTotalVentas(ventas));
+        JLabel totalVentas = new JLabel("Total Ventas: " 
+                + calcularTotalVentas(ventas));
         totalVentas.setFont(new Font("Arial", Font.BOLD, 16));
         totalVentas.setForeground(new Color(80, 0, 120));
 
-        JLabel promedioSemanal = new JLabel("Promedio Semanal: " + calcularPromedioSemanal(ventas));
+        JLabel promedioSemanal = new JLabel("Promedio Semanal: " 
+                + calcularPromedioSemanal(ventas));
         promedioSemanal.setFont(new Font("Arial", Font.BOLD, 16)); 
         promedioSemanal.setForeground(new Color(80, 0, 120));
 
@@ -98,17 +105,22 @@ public class VentanaReportesAvanzados extends JFrame {
      * being processed.
      * @return Total de ventas. / Total sales.
      */
-    private int calcularTotalVentasRecursivo(int[][] ventas, int fila, int columna) {
+    private int calcularTotalVentasRecursivo(int[][]
+            ventas, int fila, int columna) {
         if (fila >= ventas.length) { //Base case: if we reached the end of rows
             return 0;
         }
 
-        if (columna >= ventas[fila].length) { //Base case: if we reached the end of columns..
-            return calcularTotalVentasRecursivo(ventas, fila + 1, 0); // Recursive call with next row.
+        if (columna >= ventas[fila].length) { 
+            return calcularTotalVentasRecursivo(ventas, fila + 1, 0); 
         }
-
-        // Sumar la venta de la celda actual y llamar recursivamente a la siguiente columna
-        return ventas[fila][columna] + calcularTotalVentasRecursivo(ventas, fila, columna + 1);
+        /**
+         * Sumar la venta de la celda actual y 
+         * llamar recursivamente a la siguiente columna
+         */
+       
+        return ventas[fila][columna] + 
+                calcularTotalVentasRecursivo(ventas, fila, columna + 1);
     }
 
     /**
@@ -144,6 +156,7 @@ public class VentanaReportesAvanzados extends JFrame {
                 new String[]{"Producto A", "Producto B", "Producto C"},
                 new String[]{"Tienda Física", "En Línea"}
         );
-        VentanaReportesAvanzados ventanaReportesAvanzados = new VentanaReportesAvanzados(gestion);
+        VentanaReportesAvanzados ventanaReportesAvanzados = 
+                new VentanaReportesAvanzados(gestion);
     }
 }

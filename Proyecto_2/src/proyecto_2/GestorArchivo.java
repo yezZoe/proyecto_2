@@ -10,6 +10,7 @@ package proyecto_2;
  * @author NICOLELEIVAFALLAS
  */
 
+
 import javax.swing.JOptionPane;
 import java.io.*;
 import java.nio.file.*;
@@ -18,14 +19,22 @@ import java.util.List;
 
 public class GestorArchivo {
 
-    // Get the base directory of the project
-    private static final Path DIRECTORIO_BASE = Paths.get("").toAbsolutePath();  
-    // Build the full path to the 'ventas.txt' file inside the 'data' folder
-    private static final Path ARCHIVO_VENTAS = DIRECTORIO_BASE.resolve("data/ventas.txt");
+    /**
+     * Get the base directory of the project
+     */
+    private static final Path DIRECTORIO_BASE = 
+            Paths.get("").toAbsolutePath();  
+    /**
+     * Build the full path to the 'ventas.txt' file inside the 'data' folder
+     */
+    
+    private static final Path ARCHIVO_VENTAS = 
+            DIRECTORIO_BASE.resolve("data/ventas.txt");
 
     /**
      * Method to save a sale to the text file.
-     * This method appends the sale data (product, channel, quantity) to the 'ventas.txt' file.
+     * This method appends the sale data (product,
+     * channel, quantity) to the 'ventas.txt' file.
      * If the file or directory doesn't exist, it will be created.
      * 
      * @param producto The name of the product.
@@ -48,7 +57,8 @@ public class GestorArchivo {
             }
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVO_VENTAS.toFile(), true))) {
+        try (BufferedWriter writer = new BufferedWriter
+        (new FileWriter(ARCHIVO_VENTAS.toFile(), true))) {
             // Write sale data to the file
             writer.write("Producto reservado:   " + producto + "  ; "
                     + "Tienda escogida:  " + canal + "  ; "
@@ -62,7 +72,8 @@ public class GestorArchivo {
                 "Product: <font color='blue'>" + producto + "</font><br>" +
                 "Channel: <font color='green'>" + canal + "</font><br>" +
                 "Quantity: <font color='red'>" + cantidad + "</font></html>",
-                "Successful Registration", JOptionPane.INFORMATION_MESSAGE);
+                "Successful Registration", 
+                JOptionPane.INFORMATION_MESSAGE);
 
         } catch (IOException e) {
             // Display an error message if the sale could not be saved
@@ -75,16 +86,25 @@ public class GestorArchivo {
 
     /**
      * Method to load all sales from the text file.
-     * This method reads the 'ventas.txt' file and loads each sale as a string into a list.
-     * If the file doesn't exist or there is an error, an error message will be displayed.
+     * This method reads the 'ventas.txt'
+     * file and loads each sale as a string into a list.
+     * If the file doesn't exist or there is an error, 
+     * an error message will be displayed.
      * 
      * @return A list of strings, where each string represents a sale.
      */
     public List<String> cargarVentas() {
         List<String> ventas = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(ARCHIVO_VENTAS.toFile()))) {
+        try (BufferedReader reader = new BufferedReader
+        (new FileReader(ARCHIVO_VENTAS.toFile()))) {
             String linea;
-            // Read each line (representing a sale) from the file and add it to the list
+            
+            
+            /**
+             * Read each line (representing a sale)
+             * from the file and add it to the list
+             */
+            
             while ((linea = reader.readLine()) != null) {
                 ventas.add(linea);
             }
@@ -93,13 +113,16 @@ public class GestorArchivo {
             if (!ventas.isEmpty()) {
                 JOptionPane.showMessageDialog(null, 
                  "<html><b>Sales loaded successfully:</b><br>" +
-                 "Total records: <font color='blue'>" + ventas.size() + "</font></html>",
-                 "Successful Load", JOptionPane.INFORMATION_MESSAGE);
-            } else {
+                 "Total records: <font color='blue'>"
+                         + ventas.size() + "</font></html>",
+                 "Successful Load", 
+                 JOptionPane.INFORMATION_MESSAGE);
+            } else { 
                 // Message when no sales are found
                 JOptionPane.showMessageDialog(null, 
                     "<html><b>No sales records found.</b></html>", 
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                    "Information", 
+                    JOptionPane.INFORMATION_MESSAGE);
             }
 
         } catch (IOException e) {
@@ -108,7 +131,8 @@ public class GestorArchivo {
                 "<html><b>Error loading the sales:</b><br>" +
                 "<font color='red'>" + e.getMessage() + "</font></html>", 
                 "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        } 
+        
         // Return the list of sales
         return ventas;
     }

@@ -22,11 +22,12 @@ public class PersistenciaVentas {
      * @param filename File name to save the sales data.
      */
     public static void guardarVentas(int[][] ventas, String filename) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {  
+        try (BufferedWriter writer = new BufferedWriter
+        (new FileWriter(filename))) {  
             // Write each sale entry to the file
             for (int[] producto : ventas) {   
                 for (int venta : producto) { 
-                    writer.write(venta + " "); // Write sale value followed by a space
+                    writer.write(venta + " "); 
                 }
                 writer.newLine();  // New line after each product's sales data
             }
@@ -44,7 +45,8 @@ public class PersistenciaVentas {
      */
     public static int[][] cargarVentas(String filename) {
         int[][] ventas = new int[3][2]; 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) { 
+        try (BufferedReader reader = new BufferedReader
+        (new FileReader(filename))) { 
             String line;
             int row = 0;  
             while ((line = reader.readLine()) != null) {  

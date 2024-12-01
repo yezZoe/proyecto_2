@@ -40,12 +40,12 @@ public class InterfazReportes extends JFrame {
         // Mostrar total de ventas
         // Display total sales
         JLabel totalVentas = new JLabel("Total Ventas: " + 
-                calcularTotalVentas(ventas)); //Calculate and display the total sales
+                calcularTotalVentas(ventas)); 
         
         // Mostrar promedio semanal de ventas
         // Display weekly average sales
         JLabel promedioVentas = new JLabel("Promedio Semanal: " 
-                + calcularPromedioSemanal(ventas)); //Calculate and display the weekly average
+                + calcularPromedioSemanal(ventas)); 
         
         // Mostrar tendencias de ventas
         // Display sales trends
@@ -60,7 +60,7 @@ public class InterfazReportes extends JFrame {
 
       
         // Add the panel to the center of the window
-        add(panelEstadisticas, BorderLayout.CENTER); //Add the statistics panel to the center
+        add(panelEstadisticas, BorderLayout.CENTER); 
 
         // Botón para regresar
         // Button to go back
@@ -80,7 +80,7 @@ public class InterfazReportes extends JFrame {
     private int calcularTotalVentas(int[][] ventas) {
         int total = 0; //Initialize total
         for (int[] producto : ventas) { //Iterate over products
-            for (int venta : producto) { //Iterate over the sales of each product
+            for (int venta : producto) {//Iterate over the sales of each product
                 total += venta; //Add the sale to the total
             }
         }
@@ -111,7 +111,7 @@ public class InterfazReportes extends JFrame {
          * Here you can implement a more detailed analysis using the 
          * AnalisisRecursivo class.
          */
-        return "Tendencias aún no implementadas"; //Returns a message indicating that trends are not implemented
+        return "Tendencias aún no implementadas"; 
     }
 
     /**

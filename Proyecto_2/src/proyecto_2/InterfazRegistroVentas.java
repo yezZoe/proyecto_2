@@ -15,9 +15,11 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Interfaz para registrar ventas y gestionar reportes. Interface to register
+ * Interfaz para registrar ventas y gestionar reportes. 
+ * Interface to register
  * sales and manage reports.
  */
+
 public class InterfazRegistroVentas extends JFrame {
 
     private SistemaVentas gestionVentas; // Object to manage the sales system
@@ -44,7 +46,8 @@ public class InterfazRegistroVentas extends JFrame {
         // Main panel configuration
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         panelPrincipal.setBackground(new Color(230, 220, 255));
-        panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelPrincipal.setBorder(new EmptyBorder
+        (10, 10, 10, 10));
 
         // Create menu bar
         JMenuBar barraMenu = new JMenuBar();
@@ -55,32 +58,40 @@ public class InterfazRegistroVentas extends JFrame {
         // Menu and items
         JMenu menuOpciones = new JMenu("Menú");
         JMenuItem itemVerReportes = new JMenuItem("Ver Reportes");
-        JMenuItem itemVerReportesAvanzados = new JMenuItem("Ver Reportes Avanzados");
-        JMenuItem itemVerGraficoVentas = new JMenuItem("Ver Gráfico de Ventas");
+        JMenuItem itemVerReportesAvanzados = new JMenuItem
+        ("Ver Reportes Avanzados");
+        JMenuItem itemVerGraficoVentas = new JMenuItem
+        ("Ver Gráfico de Ventas");
         JMenuItem itemCargarVentas = new JMenuItem("Todas las Ventas");
         JMenuItem itemSalir = new JMenuItem("Salir");
 
         // Add actions to menu items
-        itemVerReportes.addActionListener(e -> new InterfazReportes(gestionVentas));
-        itemVerReportesAvanzados.addActionListener(e -> new VentanaReportesAvanzados(gestionVentas));
+        itemVerReportes.addActionListener(e -> 
+                new InterfazReportes(gestionVentas));
+        itemVerReportesAvanzados.addActionListener
+        (e -> new VentanaReportesAvanzados(gestionVentas));
         itemVerGraficoVentas.addActionListener(e -> {
             int[][] ventas = gestionVentas.obtenerVentas();
             String[] productos = gestionVentas.getProductos();
             String[] canales = gestionVentas.getCanales();
             JFrame ventanaGrafico = new JFrame("Gráfico de Ventas");
-            ventanaGrafico.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ventanaGrafico.setDefaultCloseOperation(
+                    JFrame.DISPOSE_ON_CLOSE);
             ventanaGrafico.setSize(800, 600);
-            GraficoBarras grafico = new GraficoBarras(ventas, productos, canales);
+            GraficoBarras grafico =
+                    new GraficoBarras(ventas, productos, canales);
             ventanaGrafico.add(grafico);
             ventanaGrafico.setVisible(true);
         });
         itemCargarVentas.addActionListener(e -> {
             List<String> ventas = gestorArchivo.cargarVentas();
-            StringBuilder mensaje = new StringBuilder("Ventas registradas:\n");
+            StringBuilder mensaje =
+                    new StringBuilder("Ventas registradas:\n");
             for (String venta : ventas) {
                 mensaje.append(venta).append("\n");
             }
-            JOptionPane.showMessageDialog(null, mensaje.toString());
+            JOptionPane.showMessageDialog
+        (null, mensaje.toString());
         });
         itemSalir.addActionListener(e -> System.exit(0));
 
@@ -96,14 +107,17 @@ public class InterfazRegistroVentas extends JFrame {
         setJMenuBar(barraMenu);
 
         // Data input panel
-        JPanel panelEntrada = new JPanel(new GridLayout(4, 2, 10, 10));
+        JPanel panelEntrada = new JPanel
+        (new GridLayout(4, 2, 10, 10));
         panelEntrada.setBackground(new Color(230, 220, 255));
 
         // Create input components
         JLabel etiquetaProducto = new JLabel("Producto:");
-        JComboBox<String> comboProducto = new JComboBox<>(gestionVentas.getProductos());
+        JComboBox<String> comboProducto = new 
+        JComboBox<>(gestionVentas.getProductos());
         JLabel etiquetaCanal = new JLabel("Canal:");
-        JComboBox<String> comboCanal = new JComboBox<>(gestionVentas.getCanales());
+        JComboBox<String> comboCanal = new 
+        JComboBox<>(gestionVentas.getCanales());
         JLabel etiquetaCantidad = new JLabel("Cantidad:");
         JTextField campoCantidad = new JTextField();
 
@@ -112,7 +126,9 @@ public class InterfazRegistroVentas extends JFrame {
         botonRegistrar.setBackground(new Color(200, 180, 255));
         botonRegistrar.setForeground(Color.WHITE);
         botonRegistrar.setFont(new Font("Arial", Font.BOLD, 14));
-        botonRegistrar.setBorder(BorderFactory.createLineBorder(new Color(120, 0, 150)));
+        botonRegistrar.setBorder(
+                BorderFactory.createLineBorder
+        (new Color(120, 0, 150)));
 
         botonRegistrar.addActionListener(e -> {
             try {
@@ -122,10 +138,13 @@ public class InterfazRegistroVentas extends JFrame {
                 gestionVentas.registrarVenta(producto, canal, cantidad);
                 String nombreProducto = gestionVentas.getProductos()[producto];
                 String nombreCanal = gestionVentas.getCanales()[canal];
-                gestorArchivo.guardarVenta(nombreProducto, nombreCanal, cantidad);
-                JOptionPane.showMessageDialog(null, "Venta registrada correctamente.");
+                gestorArchivo.guardarVenta
+        (nombreProducto, nombreCanal, cantidad);
+                JOptionPane.showMessageDialog
+        (null, "Venta registrada correctamente.");
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida.");
+                JOptionPane.showMessageDialog(
+                        null, "Ingrese una cantidad válida.");
             }
         });
 

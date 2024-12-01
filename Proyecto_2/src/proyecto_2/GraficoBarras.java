@@ -12,7 +12,8 @@ package proyecto_2;
 import javax.swing.*;
 import java.awt.*;
 /**
- * This class represents a bar chart to visualize product sales across different channels.
+ * This class represents a bar chart to visualize
+ * product sales across different channels.
  */
 public class GraficoBarras extends JPanel {
 
@@ -44,7 +45,8 @@ public class GraficoBarras extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 
         // Set background gradient
-        GradientPaint fondo = new GradientPaint(0, 0, new Color(220, 240, 255),
+        GradientPaint fondo = new GradientPaint
+        (0, 0, new Color(220, 240, 255),
                  getWidth(), getHeight(), new Color(190, 220, 240));
         g2d.setPaint(fondo);
         g2d.fillRect(0, 0, getWidth(), getHeight());
@@ -65,30 +67,39 @@ public class GraficoBarras extends JPanel {
         }
 
         // Enable anti-aliasing for smooth lines
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Draw the vertical axis (Y)
         g2d.setColor(Color.BLACK);
-        g2d.drawLine(margenIzquierdo, margenInferior, margenIzquierdo, margenInferior - alturaMaxima);
-        g2d.drawString("Sales", margenIzquierdo - 50, margenInferior - alturaMaxima - 10);
+        g2d.drawLine(margenIzquierdo, margenInferior, margenIzquierdo,
+                margenInferior - alturaMaxima);
+        g2d.drawString("Sales", margenIzquierdo - 50, margenInferior - 
+                alturaMaxima - 10);
 
         // Draw the horizontal axis (X)
-        g2d.drawLine(margenIzquierdo, margenInferior, getWidth() - 50, margenInferior);
+        g2d.drawLine(margenIzquierdo, margenInferior, getWidth() - 50, 
+                margenInferior);
         g2d.drawString("Products", getWidth() - 100, margenInferior + 30);
 
         // Custom colors for the bars
-        Color[] colores = {new Color(70, 130, 180), new Color(255, 99, 71), new Color(34, 139, 34)};
-        Color[] bordes = {new Color(0, 102, 153), new Color(204, 51, 51), new Color(0, 102, 51)};
+        Color[] colores = {new Color(70, 130, 180), new Color
+        (255, 99, 71), new Color(34, 139, 34)};
+        Color[] bordes = {new Color(0, 102, 153), new Color
+        (204, 51, 51), new Color(0, 102, 51)};
 
         // Draw the bars
         int x = margenIzquierdo + espacio;
         for (int i = 0; i < productos.length; i++) {
             for (int j = 0; j < canales.length; j++) {
-                int altura = (int) ((ventas[i][j] / (double) maxVentas) * alturaMaxima);
+                int altura = (int) ((ventas[i][j] / (double)
+                        maxVentas) * alturaMaxima);
                 g2d.setColor(colores[j % colores.length]);
-                g2d.fillRoundRect(x, margenInferior - altura, anchoBarra, altura, 10, 10);
+                g2d.fillRoundRect(x, margenInferior - altura, 
+                        anchoBarra, altura, 10, 10);
                 g2d.setColor(bordes[j % bordes.length]);
-                g2d.drawRoundRect(x, margenInferior - altura, anchoBarra, altura, 10, 10);
+                g2d.drawRoundRect(x, margenInferior - altura, 
+                        anchoBarra, altura, 10, 10);
                 x += anchoBarra + 5;
             }
             x += espacio;

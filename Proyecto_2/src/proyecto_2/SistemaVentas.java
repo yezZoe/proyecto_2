@@ -98,10 +98,12 @@ public class SistemaVentas {
      * @param cantidad Quantity sold
      */
     public void registrarVenta(int producto, int canal, int cantidad) {
-        if (producto >= 0 && producto < productos.length && canal >= 0 && canal < canales.length) {
+        if (producto >= 0 && producto < 
+                productos.length && canal >= 0 && canal < canales.length) {
             ventas[producto][canal] += cantidad; // Registers the sale
         } else {
-            System.out.println("Error: Índice de producto o canal fuera de rango.");
+            System.out.println(
+                    "Error: Índice de producto o canal fuera de rango.");
         }
     }
 
